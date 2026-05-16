@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Retro Gamer Blog"
+version = "1.0.0"
+id = "artifacts/retro-blog"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22664
+
+[services.development]
+run = "pnpm --filter @workspace/retro-blog run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/retro-blog", "run", "build" ]
+publicDir = "artifacts/retro-blog/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22664"
+BASE_PATH = "/"
